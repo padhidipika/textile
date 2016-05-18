@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 16, 2016 11:41:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.textile.dal.hibernate.entity.employee.Employee" table="EMPLOYEE" catalog="textile">
+        <id name="empId" type="java.lang.Integer">
+            <column name="emp_id" />
+            <generator class="identity"></generator>
+        </id>
+        <property name="firstName" type="string">
+            <column name="first_name" length="100" not-null="true" />
+        </property>
+        <property name="middleName" type="string">
+            <column name="middle_name" length="100" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="100" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="300" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="100" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="100" />
+        </property>
+        <property name="pincode" type="java.lang.Integer">
+            <column name="pincode" />
+        </property>
+        <property name="dateOfBirth" type="date">
+            <column name="date_of_birth" length="10" />
+        </property>
+        <property name="emailId" type="string">
+            <column name="email_id" length="200" />
+        </property>
+        <property name="identityImage" type="binary">
+            <column name="identity_image" />
+        </property>
+        <property name="active" type="byte">
+            <column name="active" not-null="true" />
+        </property>
+        <property name="lastModified" type="timestamp">
+            <column name="last_modified" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

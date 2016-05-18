@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/textile?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">dipuviky</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="com/textile/dal/hibernate/entity/lot/Lot.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/machine/Machine.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/beam/Beam.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/flaw/FabricFlaw.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/employee/Employee.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/employee/EmpAllocation.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/taka/Taka.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/taka/TakaFlaw.hbm.xml"/>
+    <mapping resource="com/textile/dal/hibernate/entity/taka/TakaEmp.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

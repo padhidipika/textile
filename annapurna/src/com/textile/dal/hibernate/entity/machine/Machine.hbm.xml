@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 16, 2016 11:41:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.textile.dal.hibernate.entity.machine.Machine" table="MACHINE" catalog="textile">
+        <id name="machineId" type="java.lang.Integer">
+            <column name="machine_id" />
+            <generator class="identity"></generator>
+        </id>
+        <property name="machineNumber" type="int">
+            <column name="machine_number" not-null="true" />
+        </property>
+        <property name="lastModified" type="timestamp">
+            <column name="last_modified" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
