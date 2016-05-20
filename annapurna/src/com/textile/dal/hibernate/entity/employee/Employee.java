@@ -183,7 +183,7 @@ public class Employee  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="last_modified", nullable=false, length=19)
+    @Column(name="last_modified", length=19)
     public Date getLastModified() {
         return this.lastModified;
     }
