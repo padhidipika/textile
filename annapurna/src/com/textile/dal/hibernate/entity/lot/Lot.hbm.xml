@@ -15,7 +15,7 @@
             <column name="taka_sno" not-null="true" />
         </property>
         <property name="lastModified" type="timestamp">
-            <column name="last_modified" length="19" not-null="true" />
+            <column name="last_modified" length="19" />
         </property>
     </class>
 </hibernate-mapping>

@@ -12,5 +12,26 @@ package com.textile.dal.properties;
 public class HBMEntitiesRepo {
     
     public static final String FLAW_ENTITY = "FabricFlaw";
+
+    /**
+     *
+     */
+    public static String EMPLOYEE_ENTITY = "Employee";
+
+    /**
+     *
+     */
+    public static String LOT_ENTITY = "Lot";
+
+    /**
+     *
+     */
+    public static String MACHINE_ENTITY = "Machine";
+    
+    /**
+     *
+     */
+    public static String BEAM_ENTITY = "Beam";
+    
     
 }

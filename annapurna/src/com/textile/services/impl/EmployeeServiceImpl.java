@@ -5,7 +5,7 @@
  */
 package com.textile.services.impl;
 
-import com.textile.dal.hibernate.entity.employee.FabricFlaw;
+
 import com.textile.dal.hibernate.util.HibernateUtil;
 import com.textile.dal.properties.HBMEntitiesRepo;
 import java.util.List;
@@ -64,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List getEmployeeList() throws Exception{
         try {
-           List empList = executeHQLQuery("from " + HBMEntitiesRepo.Employee_ENTITY); 
+           List empList = executeHQLQuery("from " + HBMEntitiesRepo.EMPLOYEE_ENTITY); 
            return empList; 
         } catch (Exception e) {
             throw new Exception ("Exception while retrieving employee list", e);
@@ -85,8 +85,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    @Override
-    public List getEmployeeList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

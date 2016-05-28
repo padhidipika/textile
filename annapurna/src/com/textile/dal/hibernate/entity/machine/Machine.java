@@ -29,9 +29,12 @@ public class Machine  implements java.io.Serializable {
     public Machine() {
     }
 
-    public Machine(int machineNumber, Date lastModified) {
+    public Machine(int machineNumber) {
        this.machineNumber = machineNumber;
-       this.lastModified = lastModified;
+    }
+
+    public Machine(int machineNumber, String lastModified) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)

@@ -5,69 +5,69 @@
  */
 package com.textile.services.impl;
 
-import com.textile.services.api.FlawService;
+import com.textile.dal.hibernate.entity.machine.*;
+import com.textile.dal.hibernate.util.HibernateUtil;
+import com.textile.dal.properties.HBMEntitiesRepo;
+import com.textile.services.api.MachineService;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import com.textile.dal.hibernate.entity.flaw.FabricFlaw;
-import com.textile.dal.properties.HBMEntitiesRepo;
-import com.textile.dal.hibernate.util.HibernateUtil;
 
 /**
  *
- * @author dipuviky
+ * @author Gaurav
  */
-public class FlawServiceImpl implements FlawService {
+public class MachineServiceImpl implements MachineService {
 
     @Override
-    public void insertFlaw(String flawName, String flawDescription) throws Exception {
+    public void insertMachine(int machineNumber) throws Exception {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            FabricFlaw flaw = new FabricFlaw(flawName, flawDescription);
-            session.save(flaw);
+            Machine mch = new Machine(machineNumber);
+            session.save(mch);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new Exception ("Exception while adding flaw ", e);
+            throw new Exception ("Exception while adding machine ", e);
         }
     }
 
     @Override
-    public void updateFlaw(int flawId, String flawName, String flawDescription) throws Exception {
+    public void updateMachine(int machineId, int machineNumber) throws Exception {
        try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            FabricFlaw flaw = new FabricFlaw(flawName, flawDescription);
-            flaw.setFlawId(flawId);
-            session.update(flaw);
+            Machine mch = new Machine(machineNumber);
+            mch.setMachineId(machineId);
+            session.update(mch);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new Exception ("Exception while updating flaw ", e);
+            throw new Exception ("Exception while updating machine ", e);
         }
     }
 
     @Override
-    public void deleteFlaw(int flawId) throws Exception {
+    public void deleteMachine(int machineId) throws Exception {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            FabricFlaw flaw = new FabricFlaw();
-            flaw.setFlawId(flawId);
-            session.delete(flaw);
+            Machine mch = new Machine();
+            mch.setMachineId(machineId);
+            session.delete(mch);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new Exception ("Exception while deleting flaw ", e);
+            throw new Exception ("Exception while deleting machine ", e);
         }    
     }
 
     @Override
-    public List getFlawList() throws Exception{
+    public List getMachineList() throws Exception{
         try {
-           List flawList = executeHQLQuery("from " + HBMEntitiesRepo.FLAW_ENTITY); 
-           return flawList; 
+           List machineList = executeHQLQuery("from " + HBMEntitiesRepo.MACHINE_ENTITY); 
+           return machineList; 
         } catch (Exception e) {
-            throw new Exception ("Exception while retrieving flaw list", e);
+            throw new Exception ("Exception while retrieving machine list", e);
         }
     }
 
@@ -81,8 +81,8 @@ public class FlawServiceImpl implements FlawService {
             session.getTransaction().commit();
             return resultList;
         } catch (HibernateException he) {
-            throw new Exception ("Exception while retrieving flaw list", he);
+            throw new Exception ("Exception while retrieving machine list", he);
         }
     }
-
+    
 }

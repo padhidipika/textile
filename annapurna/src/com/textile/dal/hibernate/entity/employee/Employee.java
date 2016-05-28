@@ -59,6 +59,10 @@ public class Employee  implements java.io.Serializable {
        this.active = active;
        this.lastModified = lastModified;
     }
+
+    public Employee(String firstName, String middleName, String lastName, String address, String city, String state, int pincode, String dateOfBirth, String emailId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
      @Id @GeneratedValue(strategy=IDENTITY)
 
@@ -190,6 +194,10 @@ public class Employee  implements java.io.Serializable {
     
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public void setempId(int empId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

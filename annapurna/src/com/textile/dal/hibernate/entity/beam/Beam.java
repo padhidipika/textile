@@ -37,14 +37,13 @@ public class Beam  implements java.io.Serializable {
     }
 
 	
-    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, Date lastModified) {
+    public Beam(int beamSno, int lotId, int machineId, int noOfTaka) {
         this.beamSno = beamSno;
         this.lotId = lotId;
         this.machineId = machineId;
         this.noOfTaka = noOfTaka;
-        this.lastModified = lastModified;
     }
-    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, Long meterPerTaka, Long totalMeter, Date issueDate, Date completionDate, Date lastModified) {
+    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, Long meterPerTaka, Long totalMeter, Date issueDate, Date completionDate) {
        this.beamSno = beamSno;
        this.lotId = lotId;
        this.machineId = machineId;
@@ -53,9 +52,36 @@ public class Beam  implements java.io.Serializable {
        this.totalMeter = totalMeter;
        this.issueDate = issueDate;
        this.completionDate = completionDate;
-       this.lastModified = lastModified;
     }
-   
+
+    public Beam(int beamId, Date completionDate) {
+        this.completionDate = completionDate;
+       
+    }
+
+    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, long meterPerTaka, long totalMeter,Date issueDate) {
+       this.beamSno = beamSno;
+       this.lotId = lotId;
+       this.machineId = machineId;
+       this.noOfTaka = noOfTaka;
+       this.meterPerTaka = meterPerTaka;
+       this.totalMeter = totalMeter;
+       this.issueDate = issueDate;
+    }
+
+    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, long meterPerTaka, long totalMeter, String sueDate, String completionDate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Beam(int beamSno, int lotId, int machineId, int noOfTaka, long meterPerTaka, long totalMeter, String sueDate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Beam(int beamId, String completionDate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+     
      @Id @GeneratedValue(strategy=IDENTITY)
 
     
@@ -149,7 +175,7 @@ public class Beam  implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="last_modified", nullable=false, length=19)
+    @Column(name="last_modified", nullable=false,length=19)
     public Date getLastModified() {
         return this.lastModified;
     }
