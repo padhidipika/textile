@@ -5,7 +5,6 @@
  */
 package com.textile.services.impl;
 
-
 import com.textile.dal.hibernate.util.HibernateUtil;
 import com.textile.dal.properties.HBMEntitiesRepo;
 import java.util.List;
@@ -23,7 +22,10 @@ import com.textile.services.api.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
     
      @Override
-     public void insertEmployee(String firstName, String middleName,String lastName,String address,String city,String state,int pincode,String dateOfBirth,String emailId) throws Exception {
+     public void insertEmployee(String firstName, String middleName, 
+                                String lastName, String address, String city, 
+                                String state, int pincode, String dateOfBirth,
+                                String emailId) throws Exception {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -35,12 +37,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
     @Override
-    public void updateEmployee(int empId,String firstName, String middleName,String lastName,String address,String city,String state,int pincode,String dateOfBirth,String emailId) throws Exception {
+    public void updateEmployee(int empId, String firstName, String middleName,
+                                String lastName, String address, String city,
+                                String state, int pincode, String dateOfBirth,
+                                String emailId) throws Exception {
        try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Employee emp = new Employee(firstName, middleName,lastName,address,city,state,pincode,dateOfBirth,emailId);
-            emp.setempId(empId);
+            emp.setEmpId(empId);
             session.update(emp);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -53,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Employee emp = new Employee();
-            emp.setempId(empId);
+            emp.setEmpId(empId);
             session.delete(emp);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -84,5 +89,4 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new Exception ("Exception while retrieving employee list", he);
         }
     }
-
 }
