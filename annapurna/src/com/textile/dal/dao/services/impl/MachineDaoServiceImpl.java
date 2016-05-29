@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.impl;
+package com.textile.dal.dao.services.impl;
 
+import com.textile.dal.hibernate.entity.lot.Lot;
 import com.textile.dal.hibernate.entity.machine.*;
 import com.textile.dal.hibernate.util.HibernateUtil;
 import com.textile.dal.properties.HBMEntitiesRepo;
-import com.textile.services.api.MachineService;
+import com.textile.dto.ComboItem;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import com.textile.dal.dao.services.api.MachineDaoService;
 
 /**
  *
  * @author Gaurav
  */
-public class MachineServiceImpl implements MachineService {
+public class MachineDaoServiceImpl implements MachineDaoService {
 
     @Override
     public void insertMachine(int machineNumber) throws Exception {
@@ -71,6 +74,24 @@ public class MachineServiceImpl implements MachineService {
         }
     }
 
+     @Override
+    public List<ComboItem> getComboItems(String defaultItem) throws Exception {
+        List<ComboItem> machineItems =  new ArrayList<>();
+        ComboItem item =   new ComboItem(0, "-" + defaultItem + "-");
+        machineItems.add(item);
+        try {
+           List results = getMachineList();
+            for (Object o : results) {
+                Machine machine = (Machine) o;
+                item = new ComboItem(machine.getMachineId(), String.valueOf(machine.getMachineNumber()));
+                machineItems.add(item);
+            }
+           return machineItems; 
+        } catch (Exception e) {
+            throw new Exception ("Exception while retrieving combo items for machine", e);
+        }   
+    }
+    
     private List executeHQLQuery(String hql) throws Exception{
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

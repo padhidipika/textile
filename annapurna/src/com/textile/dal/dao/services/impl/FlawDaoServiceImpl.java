@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.impl;
+package com.textile.dal.dao.services.impl;
 
-import com.textile.services.api.FlawService;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -13,12 +12,13 @@ import org.hibernate.Session;
 import com.textile.dal.hibernate.entity.flaw.FabricFlaw;
 import com.textile.dal.properties.HBMEntitiesRepo;
 import com.textile.dal.hibernate.util.HibernateUtil;
+import com.textile.dal.dao.services.api.FlawDaoService;
 
 /**
  *
  * @author dipuviky
  */
-public class FlawServiceImpl implements FlawService {
+public class FlawDaoServiceImpl implements FlawDaoService {
 
     @Override
     public void insertFlaw(String flawName, String flawDescription) throws Exception {

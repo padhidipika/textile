@@ -5,11 +5,18 @@
  */
 package com.textile.ui.dashboard;
 
+import com.textile.ui.FrmFlawMaster;
+import com.textile.ui.beam.FrmBeamReport;
+import java.awt.Container;
+import java.util.HashSet;
+
 /**
  *
  * @author dipuviky
  */
 public class FrmMain extends javax.swing.JFrame {
+    
+    HashSet containerMap =  new HashSet<>();
 
     /**
      * Creates new form FrmMain
@@ -27,38 +34,45 @@ public class FrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        tabContent = new javax.swing.JTabbedPane();
+        jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        mTaka = new javax.swing.JMenu();
+        miShowDirectory = new javax.swing.JRadioButtonMenuItem();
         mBeam = new javax.swing.JMenu();
         miBeamIssue = new javax.swing.JMenuItem();
         mMasters = new javax.swing.JMenu();
         miFlaw = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gaurav Textiles :: Annapurna ");
 
-        jLabel1.setText("jLabel1");
+        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jToolBar1.setRollover(true);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 764, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel1)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        jLabel1.setText("taka 1");
+        jToolBar1.add(jLabel1);
+
+        jLabel2.setText("taka 2");
+        jToolBar1.add(jLabel2);
+
+        jLabel3.setText("taka 3");
+        jToolBar1.add(jLabel3);
+
+        jLabel4.setText("taka 4");
+        jToolBar1.add(jLabel4);
+
+        mTaka.setText("Taka");
+
+        miShowDirectory.setSelected(true);
+        miShowDirectory.setText("Working Directory");
+        mTaka.add(miShowDirectory);
+
+        jMenuBar1.add(mTaka);
 
         mBeam.setText("Beam");
         mBeam.setToolTipText("Beam issue");
@@ -92,24 +106,31 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tabContent, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabContent, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 336, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void miFlawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miFlawActionPerformed
-//TODO Add Flaw        
+        FrmFlawMaster cntFlaw = new FrmFlawMaster();
+        tabContent.addTab("Flaw Master", cntFlaw.getContentPane());
     }//GEN-LAST:event_miFlawActionPerformed
 
     private void miBeamIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBeamIssueActionPerformed
-        // TODO open beam issue 
+        FrmBeamReport cntBeam = new FrmBeamReport();
+        tabContent.addTab("Beam Stats", cntBeam.getContentPane());
     }//GEN-LAST:event_miBeamIssueActionPerformed
 
     /**
@@ -123,7 +144,8 @@ public class FrmMain extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                System.out.println(info.getName());
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -146,14 +168,24 @@ public class FrmMain extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void addContainerToTab(String title, Container tabContent){
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu mBeam;
     private javax.swing.JMenu mMasters;
+    private javax.swing.JMenu mTaka;
     private javax.swing.JMenuItem miBeamIssue;
     private javax.swing.JMenuItem miFlaw;
+    private javax.swing.JRadioButtonMenuItem miShowDirectory;
+    private javax.swing.JTabbedPane tabContent;
     // End of variables declaration//GEN-END:variables
 }

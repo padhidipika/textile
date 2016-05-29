@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.impl;
+package com.textile.dal.dao.services.impl;
 
+import com.textile.dal.hibernate.entity.flaw.FabricFlaw;
 import com.textile.dal.hibernate.entity.lot.*;
 import com.textile.dal.hibernate.util.HibernateUtil;
 import com.textile.dal.properties.HBMEntitiesRepo;
-import com.textile.services.api.LotService;
+import com.textile.dto.ComboItem;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import com.textile.dal.dao.services.api.LotDaoService;
 
 /**
  *
  * @author Gaurav
  */
-public class LotServiceImpl  implements LotService {
+public class LotDaoServiceImpl  implements LotDaoService {
 
     @Override
     public void insertLot(int lotNumber, int takaSno) throws Exception {
@@ -70,6 +73,27 @@ public class LotServiceImpl  implements LotService {
             throw new Exception ("Exception while retrieving lot list", e);
         } 
     }
+    
+    
+    @Override
+    public List<ComboItem> getComboItems(String defaultItem) throws Exception {
+        List<ComboItem> lotItems =  new ArrayList<>();
+        ComboItem item =   new ComboItem(0, "-" + defaultItem + "-");
+        lotItems.add(item);
+        try {
+           List results = getLotList();
+            for (Object o : results) {
+                Lot lot = (Lot) o;
+                item = new ComboItem(lot.getLotId(), String.valueOf(lot.getLotNumber()));
+                lotItems.add(item);
+            }
+           return lotItems; 
+        } catch (Exception e) {
+            throw new Exception ("Exception while retrieving combo items for lot", e);
+        }   
+    }
+    
+    
    private List executeHQLQuery(String hql) throws Exception{
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

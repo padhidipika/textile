@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.api;
+package com.textile.dal.dao.services.api;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Gaurav
  */
-public interface EmployeeService {
+public interface EmployeeDaoService {
     
     /**
      *

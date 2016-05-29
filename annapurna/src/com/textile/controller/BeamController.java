@@ -5,17 +5,33 @@
  */
 package com.textile.controller;
 
+import com.textile.dal.dao.services.impl.BeamDaoServiceImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.textile.dal.dao.services.api.BeamDaoService;
+
 /**
  *
  * @author dipuviky
  */
 public class BeamController {
 
-    public void IssueBeam() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    BeamDaoService beamService = new BeamDaoServiceImpl();
+    
+    public void IssueBeam(int beamSno, int lotId, int machineId, int noOfTaka,
+                        long meterPerTaka, long totalMeter, String issueDate) {
+        try {
+            
+            beamService.insertBeam(beamSno, lotId, machineId, noOfTaka, 
+                                    meterPerTaka, totalMeter, issueDate);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(BeamController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    
+
+ 
+
     
     
 }

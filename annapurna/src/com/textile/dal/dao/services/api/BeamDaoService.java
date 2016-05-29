@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.api;
+package com.textile.dal.dao.services.api;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Gaurav
  */
-public interface BeamService {
+public interface BeamDaoService {
   /**
      *
      * @param beamSno
@@ -21,10 +21,10 @@ public interface BeamService {
      * @param meterPerTaka
      * @param totalMeter
      * @param issueDate
-     * @param completionDate
      * @throws java.lang.Exception
      */
-    void insertBeam(int beamSno, int lotId,int machineId,int noOfTaka,long meterPerTaka,long totalMeter,String issueDate,String completionDate) throws Exception;
+    void insertBeam(int beamSno, int lotId, int machineId, int noOfTaka,
+                    long meterPerTaka, long totalMeter, String issueDate) throws Exception;
 
     /**
      *
@@ -38,7 +38,9 @@ public interface BeamService {
      * @param issueDate
      * @throws java.lang.Exception
      */
-    void updateBeam(int beamId,int beamSno, int lotId,int machineId,int noOfTaka,long meterPerTaka,long totalMeter,String issueDate) throws Exception;
+    void updateBeam(int beamId, int beamSno, int lotId, int machineId,
+                    int noOfTaka, long meterPerTaka, long totalMeter,
+                    String issueDate) throws Exception;
 
     /**
      *
@@ -52,7 +54,7 @@ public interface BeamService {
      * @param completionDate
      * @throws java.lang.Exception
      */
-    void updateDateOfCompletion(int beamId,String completionDate) throws Exception;
+    void updateDateOfCompletion(int beamId, String completionDate) throws Exception;
 
     /**
      *
@@ -67,5 +69,14 @@ public interface BeamService {
      * @throws java.lang.Exception
      */
     List getBeamList() throws Exception;
+    
+     /**
+     * get all flaws
+     * @param MachineNo
+     * @return 
+     * @throws java.lang.Exception
+     */
+    List getBeamList(int machineId) throws Exception;
+    
     
 }

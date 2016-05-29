@@ -17,14 +17,14 @@ import java.util.logging.Logger;
  *
  * @author dipuviky
  */
-public class FlawMaster extends javax.swing.JFrame {
+public class FrmFlawMaster extends javax.swing.JFrame {
 
     private FlawController flawController = new FlawController();
     private int flawID = 0;
     /**
      * Creates new form NewJFrame
      */
-    public FlawMaster() {
+    public FrmFlawMaster() {
         initComponents();
         loadFlawData();
     }
@@ -52,8 +52,10 @@ public class FlawMaster extends javax.swing.JFrame {
         btnOperation = new javax.swing.JButton();
         lblError = new java.awt.Label();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
+        setType(java.awt.Window.Type.UTILITY);
 
         lblHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -214,7 +216,7 @@ public class FlawMaster extends javax.swing.JFrame {
                     loadFlawData();
                 } catch (Exception ex) {
                     loadError(ex.getMessage()); 
-                    Logger.getLogger(FlawMaster.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FrmFlawMaster.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -253,7 +255,7 @@ public class FlawMaster extends javax.swing.JFrame {
             tblResult.setModel(new DefaultTableModel(tableData, tableHeaders));
         } catch (Exception ex) {
             loadError(ex.getMessage()); 
-            Logger.getLogger(FlawMaster.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmFlawMaster.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -275,7 +277,7 @@ public class FlawMaster extends javax.swing.JFrame {
             return true;
         } catch (Exception ex) {
             loadError(ex.getMessage()); 
-            Logger.getLogger(FlawMaster.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmFlawMaster.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -283,44 +285,46 @@ public class FlawMaster extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-        // javax.swing.UIManager.setLookAndFeel(MetalLookAndFeel);
-         
-        
-        try {
-           
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FlawMaster().setVisible(true);
-            }
-        });
-        
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        
+//        // javax.swing.UIManager.setLookAndFeel(MetalLookAndFeel);
+//         
+//        
+//        try {
+//           
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new FrmFlawMaster().setVisible(true);
+//            }
+//        });
+//        
+//    }
     
     private void loadError(String message){
         lblError.setText(message);

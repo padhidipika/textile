@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.impl;
+package com.textile.dal.dao.services.impl;
 
 import com.textile.dal.hibernate.util.HibernateUtil;
 import com.textile.dal.properties.HBMEntitiesRepo;
@@ -12,14 +12,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import com.textile.dal.hibernate.entity.employee.*;
-import com.textile.services.api.EmployeeService;
+import com.textile.dal.dao.services.api.EmployeeDaoService;
 
         
  /**
  *
  * @author Gaurav
  */
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeDaoServiceImpl implements EmployeeDaoService {
     
      @Override
      public void insertEmployee(String firstName, String middleName, 

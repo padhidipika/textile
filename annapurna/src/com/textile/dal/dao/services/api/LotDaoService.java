@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.textile.services.api;
+package com.textile.dal.dao.services.api;
 
+import com.textile.dto.ComboItem;
 import java.util.List;
 
 /**
  *
  * @author Gaurav
  */
-public interface LotService {
+public interface LotDaoService {
     
      /**
      * @param lotNumber
@@ -41,5 +42,13 @@ public interface LotService {
      * @throws java.lang.Exception
      */
     List getLotList() throws Exception;
+    
+    /**
+     *
+     * @param defaultItem
+     * @return
+     * @throws Exception
+     */
+    List<ComboItem> getComboItems(String defaultItem) throws Exception;
     
 }

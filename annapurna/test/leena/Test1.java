@@ -5,7 +5,7 @@
  */
 package leena;
 
-import com.textile.services.impl.LotServiceImpl;
+import com.textile.dal.dao.services.impl.LotDaoServiceImpl;
 
 /**
  *
@@ -14,7 +14,7 @@ import com.textile.services.impl.LotServiceImpl;
 public class Test1 {
     public static void main(String[] args) throws Exception {
         System.out.println("tashi krishi");
-        LotServiceImpl  lsi = new LotServiceImpl();
+        LotDaoServiceImpl  lsi = new LotDaoServiceImpl();
         lsi.insertLot(1,2);
     }
     

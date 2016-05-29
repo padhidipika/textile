@@ -6,6 +6,11 @@
 package com.textile.ui.beam;
 
 import com.textile.controller.BeamController;
+import com.textile.controller.LotController;
+import com.textile.controller.MachineController;
+import com.textile.dto.ComboItem;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,12 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class FrmBeamIssue extends javax.swing.JFrame {
 
-    private BeamController beamController = new BeamController();
+    private final BeamController beamController = new BeamController();
+    private final LotController lotController = new LotController();
+    private final MachineController machineController = new MachineController();
     /**
      * Creates new form BeamIssue
      */
     public FrmBeamIssue() {
         initComponents();
+        LoadComponents();
     }
 
     /**
@@ -48,7 +56,10 @@ public class FrmBeamIssue extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setSize(new java.awt.Dimension(377, 333));
+        setType(java.awt.Window.Type.POPUP);
 
         lblHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -150,7 +161,7 @@ public class FrmBeamIssue extends javax.swing.JFrame {
                     .addComponent(lblMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -196,8 +207,14 @@ public class FrmBeamIssue extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         if (! Validate()) return;
-        
-        beamController.IssueBeam();
+        int lotId     = ((ComboItem) cmbLotNo.getSelectedItem()).getId();
+        int machineId = ((ComboItem) cmbMachineNo.getSelectedItem()).getId();
+        int beamSno   =  Integer.parseInt(txtBeamSNo.getText()); 
+        int noOfTaka  =  Integer.parseInt(txtTotalTaka.getText());
+        long meterPerTaka = Long.parseLong(txtMeterPerTaka.getText());
+        long totalMeter = noOfTaka * meterPerTaka;
+        String issueDate = "";
+        beamController.IssueBeam(beamSno, lotId, machineId, noOfTaka, meterPerTaka, totalMeter, issueDate);
         JOptionPane.showMessageDialog(this, "Beam Issue Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -287,10 +304,25 @@ public class FrmBeamIssue extends javax.swing.JFrame {
             txtIssueDate.requestFocus();
             return false;
         }
-        
-        
-        
-        
         return true;
+    }
+
+    private void LoadComponents() {
+        try {
+            loadLotCombo();
+            loadMachineCombo();
+        } catch (Exception ex) {
+           // Todo : error label
+        }
+    }
+    
+    private void loadLotCombo() throws Exception {
+        ComboBoxModel model = new DefaultComboBoxModel(lotController.getLotComboModel("Select"));
+        cmbLotNo.setModel(model);
+    }
+
+    private void loadMachineCombo() throws Exception {
+        ComboBoxModel model = new DefaultComboBoxModel(machineController.getMachineComboModel("Select"));
+        cmbMachineNo.setModel(model);
     }
 }

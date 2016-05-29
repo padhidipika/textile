@@ -6,10 +6,10 @@
 package com.textile.controller;
 
 import com.textile.dal.hibernate.entity.flaw.FabricFlaw;
-import com.textile.services.api.FlawService;
-import com.textile.services.impl.FlawServiceImpl;
+import com.textile.dal.dao.services.impl.FlawDaoServiceImpl;
 import java.util.List;
 import java.util.Vector;
+import com.textile.dal.dao.services.api.FlawDaoService;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.util.Vector;
  */
 public class FlawController {
 
-    private FlawService flawService = new FlawServiceImpl();
+    private FlawDaoService flawService = new FlawDaoServiceImpl();
 
     public Vector GetFlaws() throws Exception {
         try {
