@@ -8,6 +8,7 @@ package com.textile.ui;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import com.textile.controller.FlawController;
+import com.textile.ui.img.loader.ImageRenderer;
 
 import javax.swing.*;          
 import java.util.logging.Level;
@@ -89,6 +90,8 @@ public class FrmFlawMaster extends javax.swing.JFrame {
         txtDescription.setRows(5);
         spDescription.setViewportView(txtDescription);
 
+        btnCancel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear-icon.png"))); // NOI18N
         btnCancel.setActionCommand("Cancel");
         btnCancel.setLabel("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +100,8 @@ public class FrmFlawMaster extends javax.swing.JFrame {
             }
         });
 
+        btnOperation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnOperation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save-icon.png"))); // NOI18N
         btnOperation.setLabel("Add");
         btnOperation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,13 +120,14 @@ public class FrmFlawMaster extends javax.swing.JFrame {
                     .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(pnlOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFlawName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlOperationLayout.createSequentialGroup()
-                        .addComponent(btnOperation)
-                        .addGap(21, 21, 21)
-                        .addComponent(btnCancel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(spDescription, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlOperationLayout.createSequentialGroup()
+                            .addComponent(btnOperation, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnCancel))))
+                .addContainerGap(425, Short.MAX_VALUE))
         );
         pnlOperationLayout.setVerticalGroup(
             pnlOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +143,7 @@ public class FrmFlawMaster extends javax.swing.JFrame {
                 .addGroup(pnlOperationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnOperation))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblError.setFont(new java.awt.Font("Lucida Grande", 3, 16)); // NOI18N
@@ -232,6 +238,41 @@ public class FrmFlawMaster extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnOperationActionPerformed
 
+    
+        /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FrmFlawMaster().setVisible(true);
+            }
+        });
+    }
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         clearError();
         btnOperation.setText("Add");
@@ -253,6 +294,10 @@ public class FrmFlawMaster extends javax.swing.JFrame {
             Vector tableData = flawController.GetFlaws();
             
             tblResult.setModel(new DefaultTableModel(tableData, tableHeaders));
+            tblResult.getColumnModel().getColumn(tblResult.getColumnCount()-2).setPreferredWidth(20);
+            tblResult.getColumnModel().getColumn(tblResult.getColumnCount()-1).setPreferredWidth(20);
+            tblResult.getColumnModel().getColumn(tblResult.getColumnCount()-2).setCellRenderer(new ImageRenderer());
+            tblResult.getColumnModel().getColumn(tblResult.getColumnCount()-1).setCellRenderer(new ImageRenderer());
         } catch (Exception ex) {
             loadError(ex.getMessage()); 
             Logger.getLogger(FrmFlawMaster.class.getName()).log(Level.SEVERE, null, ex);

@@ -9,18 +9,17 @@ package com.textile.ui.beam;
 import com.textile.controller.BeamController;
 import com.textile.controller.LotController;
 import com.textile.controller.MachineController;
-import java.util.Vector;
+import com.textile.ui.img.loader.ImageRenderer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * @author dipuviky
  */
-public class FrmBeamReport extends javax.swing.JFrame {
+public class FrmBeamList extends javax.swing.JFrame {
 
     private final BeamController beamController = new BeamController();
     private final LotController lotController = new LotController();
@@ -28,7 +27,7 @@ public class FrmBeamReport extends javax.swing.JFrame {
     /**
      * Creates new form FrmBeamReport
      */
-    public FrmBeamReport() {
+    public FrmBeamList() {
         initComponents();
         loadComponents();
         
@@ -58,16 +57,35 @@ public class FrmBeamReport extends javax.swing.JFrame {
 
         tblBeamReport.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Lot No", "Machine No", "Beam No", "Issue Date", "E. Taka", "E. Meters", "P. Taka", "P. Meters", "Bal Taka", "Beam Viran", "Viran Date", "", ""
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblBeamReport.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scpBeamReport.setViewportView(tblBeamReport);
+
+        getContentPane().add(scpBeamReport, java.awt.BorderLayout.CENTER);
+
+        pnlSearch.setPreferredSize(new java.awt.Dimension(1244, 70));
 
         lblLotNo.setText("Lot No");
 
@@ -77,6 +95,8 @@ public class FrmBeamReport extends javax.swing.JFrame {
 
         cmbLotNo.setToolTipText("");
 
+        btnSearch.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search-icon.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,12 +104,18 @@ public class FrmBeamReport extends javax.swing.JFrame {
             }
         });
 
+        btnIssueNewBeam.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnIssueNewBeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-icon.png"))); // NOI18N
         btnIssueNewBeam.setText("Issue New Beam");
         btnIssueNewBeam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIssueNewBeamActionPerformed(evt);
             }
         });
+
+        lblHeader.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHeader.setText("Beam Master");
 
         javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
         pnlSearch.setLayout(pnlSearchLayout);
@@ -106,51 +132,29 @@ public class FrmBeamReport extends javax.swing.JFrame {
                 .addComponent(cmbMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnIssueNewBeam)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(pnlSearchLayout.createSequentialGroup()
+                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 1244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 23, Short.MAX_VALUE))
         );
         pnlSearchLayout.setVerticalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSearchLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
+                .addComponent(lblHeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMachineno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbLotNo)
+                    .addComponent(cmbLotNo, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(lblLotNo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIssueNewBeam)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                .addGap(12, 12, 12))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
-        lblHeader.setFont(new java.awt.Font("Lucida Grande", 1, 20)); // NOI18N
-        lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeader.setText("Beam Stats Report");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scpBeamReport)
-                    .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblHeader, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scpBeamReport, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(pnlSearch, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -160,7 +164,7 @@ public class FrmBeamReport extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnIssueNewBeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIssueNewBeamActionPerformed
-        final JDialog frame = new JDialog(this, "Issue new Beam", true);
+        final JDialog frame = new JDialog(this, "Issue New Beam", true);
         FrmBeamIssue frm = new FrmBeamIssue();
         frame.getContentPane().add(frm.getContentPane());
         frame.pack();
@@ -183,39 +187,31 @@ public class FrmBeamReport extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBeamReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBeamReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBeamReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBeamReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmBeamList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmBeamReport().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FrmBeamList().setVisible(true);
         });
     }
     
-    private void loadTable() {
+    private void renderTable() {
         try {
-            Vector<String> tableHeaders = new Vector<>();
-            tableHeaders.add("Lot No");
-            tableHeaders.add("Machine No");
-            tableHeaders.add("Beam SNo");
-            tableHeaders.add("Issue Date");
-            tableHeaders.add("Exp Taka");
-            tableHeaders.add("Exp Meters");
-            tableHeaders.add("Prod Taka");
-            tableHeaders.add("Prod Meters");
-            tableHeaders.add("Last modified");
-            Vector tableData = new Vector<>();          
-            tblBeamReport.setModel(new DefaultTableModel(tableData, tableHeaders));
+            tblBeamReport.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblBeamReport.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblBeamReport.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblBeamReport.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tblBeamReport.getColumnModel().getColumn(tblBeamReport.getColumnCount()-2).setPreferredWidth(20);
+            tblBeamReport.getColumnModel().getColumn(tblBeamReport.getColumnCount()-1).setPreferredWidth(20);
+            tblBeamReport.getColumnModel().getColumn(tblBeamReport.getColumnCount()-2).setCellRenderer(new ImageRenderer());
+            tblBeamReport.getColumnModel().getColumn(tblBeamReport.getColumnCount()-1).setCellRenderer(new ImageRenderer());
         } catch (Exception ex) {
             Logger.getLogger(this.getName()).log(Level.SEVERE, null, ex);
         }
@@ -236,7 +232,8 @@ public class FrmBeamReport extends javax.swing.JFrame {
 
     private void loadComponents() {
         try {
-            loadTable();
+            
+            renderTable();
             loadLotCombo();
             loadMachineCombo();
         } catch (Exception ex) {

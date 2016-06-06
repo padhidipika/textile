@@ -9,7 +9,7 @@
             <generator class="identity"></generator>
         </id>
         <property name="firstName" type="string">
-            <column name="first_name" length="100" not-null="true" />
+            <column name="first_name" length="100" />
         </property>
         <property name="middleName" type="string">
             <column name="middle_name" length="100" />
@@ -39,7 +39,7 @@
             <column name="identity_image" />
         </property>
         <property name="active" type="byte">
-            <column name="active" not-null="true" />
+            <column name="active" />
         </property>
         <property name="lastModified" type="timestamp">
             <column name="last_modified" length="19" />

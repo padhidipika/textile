@@ -5,6 +5,8 @@
  */
 package com.textile.dal.dao.services.api;
 
+import com.textile.dal.hibernate.entity.employee.Employee;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public interface EmployeeDaoService {
      * @param emailId
      * @throws java.lang.Exception
      */
-    void insertEmployee(String firstName, String middleName,String lastName,String address,String city,String state,int pincode,String dateOfBirth,String emailId ) throws Exception;
+    void insertEmployee(String firstName, String middleName,String lastName,String address,String city,String state,int pincode,Date dateOfBirth,String emailId ) throws Exception;
 
     /**
      *
@@ -42,7 +44,7 @@ public interface EmployeeDaoService {
      * @param emailId
      * @throws java.lang.Exception
      */
-     void updateEmployee(int empId,String firstName, String middleName,String lastName,String address,String city,String state,int pincode,String dateOfBirth,String emailId) throws Exception;
+     void updateEmployee(int empId,String firstName, String middleName,String lastName,String address,String city,String state,int pincode,Date dateOfBirth,String emailId) throws Exception;
 
     /**
      *
@@ -50,6 +52,14 @@ public interface EmployeeDaoService {
      * @throws java.lang.Exception
      */
      void deleteEmployee(int empId) throws Exception;
+     
+     /**
+     *
+     * @param empId
+     * @param active
+     * @throws java.lang.Exception
+     */
+     void activateEmployee(int empId, boolean active) throws Exception;
 
     /**
      * get all flaws
@@ -57,4 +67,12 @@ public interface EmployeeDaoService {
      * @throws java.lang.Exception
      */
     List getEmployeeList() throws Exception;
+    
+    /**
+     *
+     * @param ID
+     * @return
+     * @throws Exception
+     */
+    Employee getEmployeeDetails(int ID) throws Exception;
 }

@@ -6,7 +6,9 @@
 package com.textile.ui.dashboard;
 
 import com.textile.ui.FrmFlawMaster;
-import com.textile.ui.beam.FrmBeamReport;
+import com.textile.ui.beam.FrmBeamList;
+import com.textile.ui.employee.FrmEmployeeList;
+import com.textile.ui.folding.FrmTakaUnit;
 import java.awt.Container;
 import java.util.HashSet;
 
@@ -43,16 +45,20 @@ public class FrmMain extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mTaka = new javax.swing.JMenu();
         miShowDirectory = new javax.swing.JRadioButtonMenuItem();
-        mBeam = new javax.swing.JMenu();
-        miBeamIssue = new javax.swing.JMenuItem();
+        miTakaHistory = new javax.swing.JMenuItem();
         mMasters = new javax.swing.JMenu();
         miFlaw = new javax.swing.JMenuItem();
+        miBeamIssue = new javax.swing.JMenuItem();
+        miEmployee = new javax.swing.JMenuItem();
+        mReport = new javax.swing.JMenu();
+        mAdmin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gaurav Textiles :: Annapurna ");
 
+        jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Navigator", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 13))); // NOI18N
+        jToolBar1.setFloatable(false);
         jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jToolBar1.setRollover(true);
 
         jLabel1.setText("taka 1");
         jToolBar1.add(jLabel1);
@@ -72,20 +78,15 @@ public class FrmMain extends javax.swing.JFrame {
         miShowDirectory.setText("Working Directory");
         mTaka.add(miShowDirectory);
 
-        jMenuBar1.add(mTaka);
-
-        mBeam.setText("Beam");
-        mBeam.setToolTipText("Beam issue");
-
-        miBeamIssue.setText("Beam Issue");
-        miBeamIssue.addActionListener(new java.awt.event.ActionListener() {
+        miTakaHistory.setText("Taka");
+        miTakaHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miBeamIssueActionPerformed(evt);
+                miTakaHistoryActionPerformed(evt);
             }
         });
-        mBeam.add(miBeamIssue);
+        mTaka.add(miTakaHistory);
 
-        jMenuBar1.add(mBeam);
+        jMenuBar1.add(mTaka);
 
         mMasters.setText("Masters");
         mMasters.setToolTipText("Master management");
@@ -98,7 +99,31 @@ public class FrmMain extends javax.swing.JFrame {
         });
         mMasters.add(miFlaw);
 
+        miBeamIssue.setText("Beam");
+        miBeamIssue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miBeamIssueActionPerformed(evt);
+            }
+        });
+        mMasters.add(miBeamIssue);
+
+        miEmployee.setText("Employee");
+        miEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEmployeeActionPerformed(evt);
+            }
+        });
+        mMasters.add(miEmployee);
+
         jMenuBar1.add(mMasters);
+
+        mReport.setText("Report");
+        mReport.setToolTipText("Beam issue");
+        jMenuBar1.add(mReport);
+
+        mAdmin.setText("Admin");
+        mAdmin.setToolTipText("Beam issue");
+        jMenuBar1.add(mAdmin);
 
         setJMenuBar(jMenuBar1);
 
@@ -107,17 +132,14 @@ public class FrmMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabContent, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+                .addComponent(tabContent, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabContent, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -129,38 +151,53 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_miFlawActionPerformed
 
     private void miBeamIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miBeamIssueActionPerformed
-        FrmBeamReport cntBeam = new FrmBeamReport();
+        FrmBeamList cntBeam = new FrmBeamList();
         tabContent.addTab("Beam Stats", cntBeam.getContentPane());
     }//GEN-LAST:event_miBeamIssueActionPerformed
+
+    private void miTakaHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTakaHistoryActionPerformed
+        FrmTakaUnit frm = new FrmTakaUnit();
+        tabContent.addTab("taka", frm);
+    }//GEN-LAST:event_miTakaHistoryActionPerformed
+
+    private void miEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEmployeeActionPerformed
+        FrmEmployeeList cntBeam = new FrmEmployeeList();
+        tabContent.addTab("Employee Master", cntBeam.getContentPane());
+    }//GEN-LAST:event_miEmployeeActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        // javax.swing.UIManager.setLookAndFeel(MetalLookAndFeel);
+         
+        
         try {
+           
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                System.out.println(info.getName());
-                if ("Metal".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+              java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmFlawMaster.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -180,12 +217,15 @@ public class FrmMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JMenu mBeam;
+    private javax.swing.JMenu mAdmin;
     private javax.swing.JMenu mMasters;
+    private javax.swing.JMenu mReport;
     private javax.swing.JMenu mTaka;
     private javax.swing.JMenuItem miBeamIssue;
+    private javax.swing.JMenuItem miEmployee;
     private javax.swing.JMenuItem miFlaw;
     private javax.swing.JRadioButtonMenuItem miShowDirectory;
+    private javax.swing.JMenuItem miTakaHistory;
     private javax.swing.JTabbedPane tabContent;
     // End of variables declaration//GEN-END:variables
 }

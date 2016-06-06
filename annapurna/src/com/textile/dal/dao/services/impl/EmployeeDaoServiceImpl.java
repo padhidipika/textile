@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import com.textile.dal.hibernate.entity.employee.*;
 import com.textile.dal.dao.services.api.EmployeeDaoService;
+import java.util.Date;
 
         
  /**
@@ -24,7 +25,7 @@ public class EmployeeDaoServiceImpl implements EmployeeDaoService {
      @Override
      public void insertEmployee(String firstName, String middleName, 
                                 String lastName, String address, String city, 
-                                String state, int pincode, String dateOfBirth,
+                                String state, int pincode, Date dateOfBirth,
                                 String emailId) throws Exception {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -36,10 +37,11 @@ public class EmployeeDaoServiceImpl implements EmployeeDaoService {
             throw new Exception ("Exception while adding employee ", e);
         }
     }
+     
     @Override
     public void updateEmployee(int empId, String firstName, String middleName,
                                 String lastName, String address, String city,
-                                String state, int pincode, String dateOfBirth,
+                                String state, int pincode, Date dateOfBirth,
                                 String emailId) throws Exception {
        try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -52,6 +54,23 @@ public class EmployeeDaoServiceImpl implements EmployeeDaoService {
             throw new Exception ("Exception while updating employee ", e);
         }
     }
+    
+    
+    @Override
+    public void activateEmployee(int empId, boolean active) throws Exception {
+       try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Employee emp = new Employee(empId, active);
+            emp.setEmpId(empId);
+            session.update(emp);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            throw new Exception ("Exception while updating employee ", e);
+        }
+    }
+    
+    
     @Override
     public void deleteEmployee(int empId) throws Exception {
         try {
@@ -71,6 +90,20 @@ public class EmployeeDaoServiceImpl implements EmployeeDaoService {
         try {
            List empList = executeHQLQuery("from " + HBMEntitiesRepo.EMPLOYEE_ENTITY); 
            return empList; 
+        } catch (Exception e) {
+            throw new Exception ("Exception while retrieving employee list", e);
+        }
+    }
+    
+     @Override
+    public Employee getEmployeeDetails(int ID) throws Exception{
+        try {
+            List result = executeHQLQuery("from " + HBMEntitiesRepo.EMPLOYEE_ENTITY + " where empId = " + ID); 
+            
+            if (result.size() > 0)
+                return (Employee) result.get(0);
+            
+            return null;
         } catch (Exception e) {
             throw new Exception ("Exception while retrieving employee list", e);
         }

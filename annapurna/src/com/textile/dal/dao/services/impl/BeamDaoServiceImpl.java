@@ -96,6 +96,21 @@ public class BeamDaoServiceImpl implements BeamDaoService {
         }  
     }
     
+    @Override
+    public Beam getBeamDetails(int beamId) throws Exception{
+      try {
+           List result = executeHQLQuery("from " + HBMEntitiesRepo.BEAM_ENTITY + " where beamId =  " + beamId); 
+           
+           if (result.size() > 0)
+               return (Beam) result.get(0);
+                
+           return null; 
+        } catch (Exception e) {
+            throw new Exception ("Exception while retrieving beam details for id " + beamId , e);
+        }  
+    }
+    
+    
     private List executeHQLQuery(String hql) throws Exception{
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

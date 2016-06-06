@@ -9,13 +9,13 @@
             <generator class="identity"></generator>
         </id>
         <property name="empId" type="int">
-            <column name="emp_id" not-null="true" />
+            <column name="emp_id" />
         </property>
         <property name="machineId" type="int">
-            <column name="machine_id" not-null="true" />
+            <column name="machine_id"  />
         </property>
         <property name="lastModified" type="timestamp">
-            <column name="last_modified" length="19" not-null="true" />
+            <column name="last_modified" length="19" />
         </property>
     </class>
 </hibernate-mapping>

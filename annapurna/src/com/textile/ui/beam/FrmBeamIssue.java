@@ -8,9 +8,14 @@ package com.textile.ui.beam;
 import com.textile.controller.BeamController;
 import com.textile.controller.LotController;
 import com.textile.controller.MachineController;
+import com.textile.dal.hibernate.entity.beam.Beam;
 import com.textile.dto.ComboItem;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,10 +27,18 @@ public class FrmBeamIssue extends javax.swing.JFrame {
     private final BeamController beamController = new BeamController();
     private final LotController lotController = new LotController();
     private final MachineController machineController = new MachineController();
+    
+    private int beamId = 0;
     /**
      * Creates new form BeamIssue
      */
     public FrmBeamIssue() {
+        initComponents();
+        LoadComponents();
+    }
+    
+    public FrmBeamIssue(int beamId) {
+        this.beamId  = beamId;
         initComponents();
         LoadComponents();
     }
@@ -40,7 +53,7 @@ public class FrmBeamIssue extends javax.swing.JFrame {
     private void initComponents() {
 
         lblHeader = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlContent = new javax.swing.JPanel();
         lblMachineNo = new javax.swing.JLabel();
         lblLotNo = new javax.swing.JLabel();
         lblBeamSNo = new javax.swing.JLabel();
@@ -52,9 +65,10 @@ public class FrmBeamIssue extends javax.swing.JFrame {
         txtBeamSNo = new javax.swing.JTextField();
         txtTotalTaka = new javax.swing.JTextField();
         txtMeterPerTaka = new javax.swing.JTextField();
-        txtIssueDate = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
+        dtIssueDate = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -64,134 +78,129 @@ public class FrmBeamIssue extends javax.swing.JFrame {
         lblHeader.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Beam Issue");
+        getContentPane().add(lblHeader, java.awt.BorderLayout.PAGE_START);
 
+        lblMachineNo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblMachineNo.setText("Machine No:");
 
+        lblLotNo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblLotNo.setText("Lot No:");
 
+        lblBeamSNo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblBeamSNo.setText("Beam SNo :");
 
-        lblTotalTaka.setText("Total Taka");
+        lblTotalTaka.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblTotalTaka.setText("Total Taka :");
 
+        lblMeterPerTaka.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblMeterPerTaka.setText("Meter per Taka :");
 
-        lblIssueDate.setText("Issue Date");
+        lblIssueDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblIssueDate.setText("Issue Date :");
 
-        btnSubmit.setText("SUBMIT");
+        btnSubmit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnSubmit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save-icon.png"))); // NOI18N
+        btnSubmit.setText("Save");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
             }
         });
 
-        btnReset.setText("RESET");
+        btnReset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clear-icon.png"))); // NOI18N
+        btnReset.setText("Clear");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        lblError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblError.setForeground(java.awt.Color.red);
+
+        javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
+        pnlContent.setLayout(pnlContentLayout);
+        pnlContentLayout.setHorizontalGroup(
+            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblMeterPerTaka)
-                                .addGap(12, 12, 12)
-                                .addComponent(txtMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlContentLayout.createSequentialGroup()
+                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlContentLayout.createSequentialGroup()
                                 .addComponent(lblBeamSNo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
-                                .addComponent(txtBeamSNo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBeamSNo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlContentLayout.createSequentialGroup()
                                 .addComponent(lblIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlContentLayout.createSequentialGroup()
                                         .addComponent(btnSubmit)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnReset))
-                                    .addComponent(txtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 73, Short.MAX_VALUE))
+                    .addGroup(pnlContentLayout.createSequentialGroup()
+                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlContentLayout.createSequentialGroup()
+                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblMachineNo, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                                     .addComponent(lblLotNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlContentLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cmbLotNo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cmbLotNo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContentLayout.createSequentialGroup()
                                         .addGap(12, 12, 12)
-                                        .addComponent(cmbMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cmbMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(pnlContentLayout.createSequentialGroup()
                                 .addComponent(lblTotalTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTotalTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTotalTaka, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(txtMeterPerTaka, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlContentLayout.setVerticalGroup(
+            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMachineNo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLotNo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbLotNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBeamSNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBeamSNo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalTaka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMeterPerTaka, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtMeterPerTaka)
+                    .addComponent(lblMeterPerTaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dtIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnReset))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblError))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(pnlContent, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,20 +211,16 @@ public class FrmBeamIssue extends javax.swing.JFrame {
        txtBeamSNo.setText("");
        txtTotalTaka.setText("");
        txtMeterPerTaka.setText("");
-       txtIssueDate.setText("");
+       dtIssueDate.setDate(new Date());
+       lblError.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        if (! Validate()) return;
-        int lotId     = ((ComboItem) cmbLotNo.getSelectedItem()).getId();
-        int machineId = ((ComboItem) cmbMachineNo.getSelectedItem()).getId();
-        int beamSno   =  Integer.parseInt(txtBeamSNo.getText()); 
-        int noOfTaka  =  Integer.parseInt(txtTotalTaka.getText());
-        long meterPerTaka = Long.parseLong(txtMeterPerTaka.getText());
-        long totalMeter = noOfTaka * meterPerTaka;
-        String issueDate = "";
-        beamController.IssueBeam(beamSno, lotId, machineId, noOfTaka, meterPerTaka, totalMeter, issueDate);
-        JOptionPane.showMessageDialog(this, "Beam Issue Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        loadError("");
+        if (saveBeam()) {
+            JOptionPane.showMessageDialog(this, "Beam saved successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            btnReset.doClick();
+        }        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
@@ -253,22 +258,23 @@ public class FrmBeamIssue extends javax.swing.JFrame {
             }
         });
     }
-
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbLotNo;
     private javax.swing.JComboBox<String> cmbMachineNo;
-    private javax.swing.JPanel jPanel1;
+    private org.jdesktop.swingx.JXDatePicker dtIssueDate;
     private javax.swing.JLabel lblBeamSNo;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblIssueDate;
     private javax.swing.JLabel lblLotNo;
     private javax.swing.JLabel lblMachineNo;
     private javax.swing.JLabel lblMeterPerTaka;
     private javax.swing.JLabel lblTotalTaka;
+    private javax.swing.JPanel pnlContent;
     private javax.swing.JTextField txtBeamSNo;
-    private javax.swing.JTextField txtIssueDate;
     private javax.swing.JTextField txtMeterPerTaka;
     private javax.swing.JTextField txtTotalTaka;
     // End of variables declaration//GEN-END:variables
@@ -299,11 +305,6 @@ public class FrmBeamIssue extends javax.swing.JFrame {
             txtMeterPerTaka.requestFocus();
             return false;
         }
-        if (txtIssueDate.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Please enter issue date ", "Error", JOptionPane.ERROR_MESSAGE);
-            txtIssueDate.requestFocus();
-            return false;
-        }
         return true;
     }
 
@@ -311,8 +312,10 @@ public class FrmBeamIssue extends javax.swing.JFrame {
         try {
             loadLotCombo();
             loadMachineCombo();
+            loadBeam(); 
         } catch (Exception ex) {
-           // Todo : error label
+            loadError(ex.getMessage()); 
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -325,4 +328,72 @@ public class FrmBeamIssue extends javax.swing.JFrame {
         ComboBoxModel model = new DefaultComboBoxModel(machineController.getMachineComboModel("Select"));
         cmbMachineNo.setModel(model);
     }
+    
+    private Boolean saveBeam(){
+        if (! Validate()) return false;
+        try {
+            int lotId     = ((ComboItem) cmbLotNo.getSelectedItem()).getId();
+            int machineId = ((ComboItem) cmbMachineNo.getSelectedItem()).getId();
+            int beamSno   =  Integer.parseInt(txtBeamSNo.getText()); 
+            int noOfTaka  =  Integer.parseInt(txtTotalTaka.getText());
+            long meterPerTaka = Long.parseLong(txtMeterPerTaka.getText());
+            long totalMeter = noOfTaka * meterPerTaka;
+            String issueDate = "";
+            if (0 == beamId)
+                beamController.issueBeam(beamSno, lotId, machineId, noOfTaka, meterPerTaka, totalMeter, issueDate);
+            else {
+                beamController.updateBeam(beamId, beamSno, lotId, machineId, noOfTaka, meterPerTaka, totalMeter, issueDate);
+            }
+            return true;
+        } catch (Exception ex) {
+            loadError(ex.getMessage()); 
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    
+    private void loadError(String message){
+        lblError.setText(message);
+    }
+
+    private void loadBeam() {
+        if (beamId <= 0) return;
+       
+        try {
+            Beam beam = beamController.getBeam(beamId);
+            
+            if (beam == null) throw new IllegalStateException("Beam details not found. Please try again or contact administrator");
+            
+            setComboIndex(cmbLotNo, beam.getLotId());
+            setComboIndex(cmbMachineNo, beam.getMachineId());
+            txtBeamSNo.setText(String.valueOf(beam.getBeamSno()));
+            dtIssueDate.setDate(beam.getIssueDate());
+            txtMeterPerTaka.setText(String.valueOf(beam.getMeterPerTaka()));
+            txtTotalTaka.setText(String.valueOf(beam.getNoOfTaka()));
+            
+        } catch (Exception ex) {
+            loadError(ex.getMessage()); 
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    private void setComboIndex(JComboBox cmbBox, int itemId) {
+        if (cmbBox == null) return;
+        
+        if (itemId <=0) { 
+            cmbBox.setSelectedIndex(0);
+            return;
+        }
+        
+        for (int i = 0; i < cmbBox.getItemCount() - 1; i++) {
+            ComboItem item = (ComboItem) cmbBox.getItemAt(i);
+            if (item.getId() == itemId) {
+                cmbBox.setSelectedItem(item);
+                break;
+            }
+        }
+    }
+    
 }

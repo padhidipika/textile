@@ -10,6 +10,7 @@ import com.textile.dal.dao.services.impl.FlawDaoServiceImpl;
 import java.util.List;
 import java.util.Vector;
 import com.textile.dal.dao.services.api.FlawDaoService;
+import com.textile.ui.img.loader.IconResource;
 
 /**
  *
@@ -18,6 +19,8 @@ import com.textile.dal.dao.services.api.FlawDaoService;
 public class FlawController {
 
     private FlawDaoService flawService = new FlawDaoServiceImpl();
+    
+    IconResource iconResource = new IconResource();
 
     public Vector GetFlaws() throws Exception {
         try {
@@ -30,8 +33,8 @@ public class FlawController {
                 oneRow.add(flaw.getFlawName());
                 oneRow.add(flaw.getFlawDesc());
                 oneRow.add(flaw.getLastModified());
-                oneRow.add("Edit");
-                oneRow.add("Delete");
+                oneRow.add(iconResource.getEditIcon());
+                oneRow.add(iconResource.getDeleteIcon());
                 tableData.add(oneRow);
             }
             return tableData;

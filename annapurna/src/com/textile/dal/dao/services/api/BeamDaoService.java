@@ -5,6 +5,7 @@
  */
 package com.textile.dal.dao.services.api;
 
+import com.textile.dal.hibernate.entity.beam.Beam;
 import java.util.List;
 
 /**
@@ -72,11 +73,18 @@ public interface BeamDaoService {
     
      /**
      * get all flaws
-     * @param MachineNo
+     * @param machineId
      * @return 
      * @throws java.lang.Exception
      */
     List getBeamList(int machineId) throws Exception;
+
+    /**
+     *
+     * @param beamId
+     * @return
+     */
+    Beam getBeamDetails(int beamId) throws Exception ;
     
     
 }

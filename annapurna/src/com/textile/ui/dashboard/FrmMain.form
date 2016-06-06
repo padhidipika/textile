@@ -15,20 +15,12 @@
                 <Property name="text" type="java.lang.String" value="Working Directory"/>
               </Properties>
             </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mBeam">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Beam"/>
-            <Property name="toolTipText" type="java.lang.String" value="Beam issue"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miBeamIssue">
+            <MenuItem class="javax.swing.JMenuItem" name="miTakaHistory">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Beam Issue"/>
+                <Property name="text" type="java.lang.String" value="Taka"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miBeamIssueActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miTakaHistoryActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -47,7 +39,35 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miFlawActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miBeamIssue">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Beam"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miBeamIssueActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miEmployee">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Employee"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEmployeeActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mReport">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Report"/>
+            <Property name="toolTipText" type="java.lang.String" value="Beam issue"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mAdmin">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Admin"/>
+            <Property name="toolTipText" type="java.lang.String" value="Beam issue"/>
+          </Properties>
         </Menu>
       </SubComponents>
     </Menu>
@@ -77,20 +97,16 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="tabContent" pref="848" max="32767" attributes="0"/>
+              <Component id="tabContent" pref="820" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jToolBar1" min="-2" pref="82" max="-2" attributes="0"/>
+              <Component id="jToolBar1" min="-2" pref="110" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="tabContent" pref="433" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jToolBar1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -101,8 +117,15 @@
     </Container>
     <Container class="javax.swing.JToolBar" name="jToolBar1">
       <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Navigator">
+              <Font PropertyName="font" name="Lucida Grande" size="13" style="1"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+        <Property name="floatable" type="boolean" value="false"/>
         <Property name="orientation" type="int" value="1"/>
-        <Property name="rollover" type="boolean" value="true"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
